@@ -9,14 +9,15 @@ class MyHomePageScreen extends StatelessWidget {
 
   final String title;
 
-  final Future<List<MovieModel>> movies = MovieApiService.getMovieApi();
+  final Future<List<MovieModel>> popularMovies =
+      MovieApiService.getMovieApi(MovieKind.popular);
+  final Future<List<MovieModel>> nowInCinemasMovies =
+      MovieApiService.getMovieApi(MovieKind.nowPlaying);
+  final Future<List<MovieModel>> comingSoonMovies =
+      MovieApiService.getMovieApi(MovieKind.comingSoon);
 
   @override
   Widget build(BuildContext context) {
-    final popularMovies = [];
-    final nowInCinemasMovies = [];
-    final comingSoonMovies = [];
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -32,7 +33,7 @@ class MyHomePageScreen extends StatelessWidget {
             ),
           ),
           FutureBuilder(
-            future: movies,
+            future: popularMovies,
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 return Row(

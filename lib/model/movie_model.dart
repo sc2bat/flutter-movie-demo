@@ -6,7 +6,7 @@ import 'package:flutter/foundation.dart';
 class MovieModel {
   bool adult;
   String backdropPath;
-  List<int> genreIds;
+  List<dynamic> genreIds;
   int id;
   String originalLanguage;
   String originalTitle;
@@ -68,39 +68,39 @@ class MovieModel {
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'adult': adult,
-      'backdropPath': backdropPath,
-      'genreIds': genreIds,
+      'backdrop_path': backdropPath,
+      'genre_ids': genreIds,
       'id': id,
-      'originalLanguage': originalLanguage,
-      'originalTitle': originalTitle,
+      'original_language': originalLanguage,
+      'original_title': originalTitle,
       'overview': overview,
       'popularity': popularity,
-      'posterPath': posterPath,
-      'releaseDate': releaseDate.millisecondsSinceEpoch,
+      'poster_path': posterPath,
+      'release_date': releaseDate.millisecondsSinceEpoch,
       'video': video,
-      'voteAverage': voteAverage,
-      'voteCount': voteCount,
+      'vote_average': voteAverage,
+      'vote_count': voteCount,
     };
   }
 
   factory MovieModel.fromMap(Map<String, dynamic> map) {
     return MovieModel(
       adult: map['adult'] as bool,
-      backdropPath: map['backdropPath'] as String,
-      genreIds: List<int>.from(
-        (map['genreIds'] as List<int>),
+      backdropPath: map['backdrop_path'] as String,
+      genreIds: List<dynamic>.from(
+        (map['genre_ids'] as List<dynamic>),
       ),
       id: map['id'] as int,
-      originalLanguage: map['originalLanguage'] as String,
-      originalTitle: map['originalTitle'] as String,
+      originalLanguage: map['original_language'] as String,
+      originalTitle: map['original_title'] as String,
       overview: map['overview'] as String,
       popularity: map['popularity'] as double,
-      posterPath: map['posterPath'] as String,
+      posterPath: map['poster_path'] as String,
       releaseDate:
-          DateTime.fromMillisecondsSinceEpoch(map['releaseDate'] as int),
+          DateTime.fromMillisecondsSinceEpoch(map['release_date'] as int),
       video: map['video'] as bool,
-      voteAverage: map['voteAverage'] as String,
-      voteCount: map['voteCount'] as String,
+      voteAverage: map['vote_average'] as String,
+      voteCount: map['vote_count'] as String,
     );
   }
 

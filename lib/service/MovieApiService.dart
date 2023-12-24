@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:my_movie_demo_app/model/movie_detail_model.dart';
 import 'package:my_movie_demo_app/model/movie_model.dart';
 import 'package:simple_logger/simple_logger.dart';
@@ -15,16 +16,17 @@ enum MovieKind {
 
 class MovieApiService {
   static String baseURL = 'https://movies-api.nomadcoders.workers.dev';
-  static String kind = getMovieKind(MovieKind.comingSoon);
 
-  static Future<List<MovieModel>> getMovieApi() async {
+  static Future<List<MovieModel>> getMovieApi(MovieKind movieKind) async {
     List<MovieModel> movieInstances = [];
+    String kind = getMovieKind(movieKind);
 
     final response = await http.get(Uri.parse('$baseURL/$kind'));
 
     if (response.statusCode == 200) {
-      final List<dynamic> moviesJson = jsonDecode(response.body);
-      movieInstances = moviesJson.map((e) => MovieModel.fromJson(e)).toList();
+      final Map<String, dynamic> jsonData = jsonDecode(response.body);
+      final List<dynamic> moviesJson = jsonData['results'];
+      movieInstances = moviesJson.map((e) => MovieModel.fromMap(e)).toList();
     }
 
     return movieInstances;
