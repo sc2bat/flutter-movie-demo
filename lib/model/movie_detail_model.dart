@@ -3,7 +3,7 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 
-class MovieModelDetail {
+class MovieDetailModel {
   bool adult;
   String backdropPath;
   BelongsToCollection belongsToCollection;
@@ -29,7 +29,7 @@ class MovieModelDetail {
   bool video;
   double voteAverage;
   int voteCount;
-  MovieModelDetail({
+  MovieDetailModel({
     required this.adult,
     required this.backdropPath,
     required this.belongsToCollection,
@@ -57,7 +57,7 @@ class MovieModelDetail {
     required this.voteCount,
   });
 
-  MovieModelDetail copyWith({
+  MovieDetailModel copyWith({
     bool? adult,
     String? backdropPath,
     BelongsToCollection? belongsToCollection,
@@ -84,7 +84,7 @@ class MovieModelDetail {
     double? voteAverage,
     int? voteCount,
   }) {
-    return MovieModelDetail(
+    return MovieDetailModel(
       adult: adult ?? this.adult,
       backdropPath: backdropPath ?? this.backdropPath,
       belongsToCollection: belongsToCollection ?? this.belongsToCollection,
@@ -143,8 +143,8 @@ class MovieModelDetail {
     };
   }
 
-  factory MovieModelDetail.fromMap(Map<String, dynamic> map) {
-    return MovieModelDetail(
+  factory MovieDetailModel.fromMap(Map<String, dynamic> map) {
+    return MovieDetailModel(
       adult: map['adult'] as bool,
       backdropPath: map['backdropPath'] as String,
       belongsToCollection: BelongsToCollection.fromMap(
@@ -192,8 +192,8 @@ class MovieModelDetail {
 
   String toJson() => json.encode(toMap());
 
-  factory MovieModelDetail.fromJson(String source) =>
-      MovieModelDetail.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory MovieDetailModel.fromJson(String source) =>
+      MovieDetailModel.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() {
@@ -201,7 +201,7 @@ class MovieModelDetail {
   }
 
   @override
-  bool operator ==(covariant MovieModelDetail other) {
+  bool operator ==(covariant MovieDetailModel other) {
     if (identical(this, other)) return true;
 
     return other.adult == adult &&
