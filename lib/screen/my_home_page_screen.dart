@@ -21,7 +21,7 @@ class _MyHomePageScreenState extends State<MyHomePageScreen> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-      body: Row(
+      body: Column(
         children: [
           const Text(
             'Popular Movies',
@@ -30,14 +30,14 @@ class _MyHomePageScreenState extends State<MyHomePageScreen> {
               fontWeight: FontWeight.bold,
             ),
           ),
-          Expanded(
-            child: ListView.builder(
-              itemCount: popularMovies.length,
-              itemBuilder: (context, index) {
-                Image.network(popularMovies[index].imageUrl);
-              },
-            ),
-          ),
+          // Expanded(
+          //   child: ListView.builder(
+          //     itemCount: popularMovies.length,
+          //     itemBuilder: (context, index) {
+          //       Image.network(popularMovies[index].imageUrl);
+          //     },
+          //   ),
+          // ),
           const Text(
             'Now in Cinemas',
             style: TextStyle(
