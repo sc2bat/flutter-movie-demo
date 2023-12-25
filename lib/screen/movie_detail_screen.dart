@@ -27,32 +27,22 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          leading: IconButton(
-            icon: const Icon(
-              Icons.arrow_back_ios_new_rounded,
-            ),
-            onPressed: () => Navigator.pop(context),
-          ),
-          title: const Text('Back to list'),
-        ),
-        body: FutureBuilder(
-          future: movieDetails,
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: CircularProgressIndicator());
-            } else if (snapshot.hasError) {
-              logger.info('Error: ${snapshot.error}');
-              return Center(child: Text('Error: ${snapshot.error}'));
-            } else if (snapshot.hasData) {
-              return buildMovieDetails(snapshot.data!);
-            } else {
-              return const Center(child: Text('No data available'));
-            }
-          },
-        ));
+      body: FutureBuilder(
+        future: movieDetails,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            logger.info('Error: ${snapshot.error}');
+            return Center(child: Text('Error: ${snapshot.error}'));
+          } else if (snapshot.hasData) {
+            return buildMovieDetails(snapshot.data!);
+          } else {
+            return const Center(child: Text('No data available'));
+          }
+        },
+      ),
+    );
   }
 
   Widget buildMovieDetails(MovieDetailModel movieDetailModel) {
@@ -61,39 +51,101 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
         Image.network(
           'https://image.tmdb.org/t/p/w500/${movieDetailModel.posterPath}',
           fit: BoxFit.cover,
+          height: double.infinity,
+          width: double.infinity,
+          alignment: Alignment.center,
         ),
-        Positioned(
-          left: 16,
-          right: 16,
-          bottom: 16,
+        SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                movieDetailModel.title,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
+              Container(
+                width: double.infinity,
+                height: MediaQuery.of(context).size.height,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      Colors.white.withOpacity(0.1),
+                      Colors.black54,
+                    ],
+                  ),
+                ),
+                child: Column(
+                  children: [
+                    Text('title'),
+                    Text('stars'),
+                    Text('timer'),
+                    Text('storyline'),
+                    Text(
+                        'story asdfstory asdfstory asdfstory asdfstory asdfstory asdfstory asdfstory asdfstory asdfstory asdfstory asdfstory asdfstory asdfstory asdfstory asdfstory asdfstory asdfstory asdfstory asdfstory asdfstory asdfstory asdf'),
+                  ],
                 ),
               ),
-              const SizedBox(height: 8),
-              Text(
-                movieDetailModel.overview,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                ),
-              ),
-              const SizedBox(height: 8),
-              Text(
-                'Release Date: ${movieDetailModel.releaseDate}',
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 14,
+              Container(
+                width: double.infinity,
+                height: 2000,
+                color: Colors.black54,
+                padding: const EdgeInsets.all(16.0),
+                child: const Text(
+                  'Title',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 32,
+                  ),
                 ),
               ),
             ],
+          ),
+        ),
+        Positioned(
+          top: 0,
+          left: 0,
+          right: 0,
+          child: AppBar(
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            leading: IconButton(
+              icon: const Icon(
+                Icons.arrow_back_ios_new_rounded,
+                color: Colors.white,
+              ),
+              onPressed: () => Navigator.pop(context),
+            ),
+            title: const Text(
+              'Back to list',
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+        ),
+        Positioned(
+          bottom: 16,
+          left: 80,
+          right: 80,
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.yellow[100],
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+            child: ElevatedButton(
+              onPressed: () {},
+              style: ElevatedButton.styleFrom(
+                primary: Colors.transparent,
+                elevation: 0,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+              ),
+              child: const Text(
+                'Buy ticket',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
           ),
         ),
       ],

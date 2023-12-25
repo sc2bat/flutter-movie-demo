@@ -27,32 +27,33 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          leading: IconButton(
-            icon: const Icon(
-              Icons.arrow_back_ios_new_rounded,
-            ),
-            onPressed: () => Navigator.pop(context),
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: IconButton(
+          icon: const Icon(
+            Icons.arrow_back_ios_new_rounded,
           ),
-          title: const Text('Back to list'),
+          onPressed: () => Navigator.pop(context),
         ),
-        body: FutureBuilder(
-          future: movieDetails,
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: CircularProgressIndicator());
-            } else if (snapshot.hasError) {
-              logger.info('Error: ${snapshot.error}');
-              return Center(child: Text('Error: ${snapshot.error}'));
-            } else if (snapshot.hasData) {
-              return buildMovieDetails(snapshot.data!);
-            } else {
-              return const Center(child: Text('No data available'));
-            }
-          },
-        ));
+        title: const Text('Back to list'),
+      ),
+      body: FutureBuilder(
+        future: movieDetails,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            logger.info('Error: ${snapshot.error}');
+            return Center(child: Text('Error: ${snapshot.error}'));
+          } else if (snapshot.hasData) {
+            return buildMovieDetails(snapshot.data!);
+          } else {
+            return const Center(child: Text('No data available'));
+          }
+        },
+      ),
+    );
   }
 
   Widget buildMovieDetails(MovieDetailModel movieDetailModel) {
