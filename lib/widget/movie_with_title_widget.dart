@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_movie_demo_app/screen/movie_detail_screen.dart';
 import 'package:my_movie_demo_app/util/logger.dart';
 
 class MovieWithTitleWidget extends StatelessWidget {
@@ -37,42 +38,55 @@ class MovieWithTitleWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     logger.info('qwerasdf https://image.tmdb.org/t/p/w500/$id');
     logger.info('qwerasdf https://image.tmdb.org/t/p/w500/$posterPath');
-    return Column(
-      children: [
-        Hero(
-          tag: id,
-          child: Container(
-            width: 200,
-            height: 250,
-            child: Column(
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(20.0),
-                  child: Image.network(
-                    'https://image.tmdb.org/t/p/w500/$posterPath',
-                    fit: BoxFit.cover,
-                    width: 180.0,
-                    height: 180.0,
-                  ),
-                ),
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 8.0, vertical: 8.0),
-                  width: 180.0,
-                  child: Text(
-                    originalTitle,
-                    style: const TextStyle(
-                      fontSize: 18,
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => MovieDetailScreen(
+              id: id,
+            ),
+            fullscreenDialog: true,
+          ),
+        );
+      },
+      child: Column(
+        children: [
+          Hero(
+            tag: id,
+            child: Container(
+              width: 200,
+              height: 250,
+              child: Column(
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(20.0),
+                    child: Image.network(
+                      'https://image.tmdb.org/t/p/w500/$posterPath',
+                      fit: BoxFit.cover,
+                      width: 180.0,
+                      height: 180.0,
                     ),
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 2,
                   ),
-                ),
-              ],
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 8.0, vertical: 8.0),
+                    width: 180.0,
+                    child: Text(
+                      originalTitle,
+                      style: const TextStyle(
+                        fontSize: 18,
+                      ),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 2,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

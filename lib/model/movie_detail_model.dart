@@ -116,77 +116,81 @@ class MovieDetailModel {
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'adult': adult,
-      'backdropPath': backdropPath,
-      'belongsToCollection': belongsToCollection.toMap(),
+      'backdrop_path': backdropPath,
+      'belongs_to_collection': belongsToCollection.toMap(),
       'budget': budget,
       'genres': genres.map((x) => x.toMap()).toList(),
       'homepage': homepage,
       'id': id,
-      'imdbId': imdbId,
-      'originalLanguage': originalLanguage,
-      'originalTitle': originalTitle,
+      'imdb_id': imdbId,
+      'original_language': originalLanguage,
+      'original_title': originalTitle,
       'overview': overview,
       'popularity': popularity,
-      'posterPath': posterPath,
-      'productionCompanies': productionCompanies.map((x) => x.toMap()).toList(),
-      'productionCountries': productionCountries.map((x) => x.toMap()).toList(),
-      'releaseDate': releaseDate,
+      'poster_path': posterPath,
+      'production_companies':
+          productionCompanies.map((x) => x.toMap()).toList(),
+      'production_countries':
+          productionCountries.map((x) => x.toMap()).toList(),
+      'release_date': releaseDate,
       'revenue': revenue,
       'runtime': runtime,
-      'spokenLanguages': spokenLanguages.map((x) => x.toMap()).toList(),
+      'spoken_languages': spokenLanguages.map((x) => x.toMap()).toList(),
       'status': status,
       'tagline': tagline,
       'title': title,
       'video': video,
-      'voteAverage': voteAverage,
-      'voteCount': voteCount,
+      'vote_average': voteAverage,
+      'vote_count': voteCount,
     };
   }
 
   factory MovieDetailModel.fromMap(Map<String, dynamic> map) {
     return MovieDetailModel(
       adult: map['adult'] as bool,
-      backdropPath: map['backdropPath'] as String,
-      belongsToCollection: BelongsToCollection.fromMap(
-          map['belongsToCollection'] as Map<String, dynamic>),
+      backdropPath: map['backdrop_path'] as String,
+      belongsToCollection: map['belongs_to_collection'] != null
+          ? BelongsToCollection.fromMap(
+              map['belongs_to_collection'] as Map<String, dynamic>)
+          : BelongsToCollection(
+              id: null, name: '', posterPath: '', backdropPath: ''),
       budget: map['budget'] as int,
-      genres: List<Genre>.from(
-        (map['genres'] as List<int>).map<Genre>(
-          (x) => Genre.fromMap(x as Map<String, dynamic>),
-        ),
-      ),
+      genres: (map['genres'] as List<dynamic>?)
+              ?.map<Genre>((x) => Genre.fromMap(x as Map<String, dynamic>))
+              .toList() ??
+          [],
       homepage: map['homepage'] as String,
       id: map['id'] as int,
-      imdbId: map['imdbId'] as String,
-      originalLanguage: map['originalLanguage'] as String,
-      originalTitle: map['originalTitle'] as String,
+      imdbId: map['imdb_id'] as String,
+      originalLanguage: map['original_language'] as String,
+      originalTitle: map['original_title'] as String,
       overview: map['overview'] as String,
       popularity: map['popularity'] as double,
-      posterPath: map['posterPath'] as String,
-      productionCompanies: List<ProductionCompany>.from(
-        (map['productionCompanies'] as List<int>).map<ProductionCompany>(
-          (x) => ProductionCompany.fromMap(x as Map<String, dynamic>),
-        ),
-      ),
-      productionCountries: List<ProductionCountry>.from(
-        (map['productionCountries'] as List<int>).map<ProductionCountry>(
-          (x) => ProductionCountry.fromMap(x as Map<String, dynamic>),
-        ),
-      ),
-      releaseDate: map['releaseDate'] as String,
+      posterPath: map['poster_path'] as String,
+      productionCompanies: (map['production_companies'] as List<dynamic>?)
+              ?.map<ProductionCompany>(
+                  (x) => ProductionCompany.fromMap(x as Map<String, dynamic>))
+              .toList() ??
+          [],
+      productionCountries: (map['production_countries'] as List<dynamic>?)
+              ?.map<ProductionCountry>(
+                  (x) => ProductionCountry.fromMap(x as Map<String, dynamic>))
+              .toList() ??
+          [],
+      releaseDate: map['release_date'] as String,
       revenue: map['revenue'] as int,
       runtime: map['runtime'] as int,
-      spokenLanguages: List<SpokenLanguage>.from(
-        (map['spokenLanguages'] as List<int>).map<SpokenLanguage>(
-          (x) => SpokenLanguage.fromMap(x as Map<String, dynamic>),
-        ),
-      ),
+      spokenLanguages: (map['spoken_languages'] as List<dynamic>?)
+              ?.map<SpokenLanguage>(
+                  (x) => SpokenLanguage.fromMap(x as Map<String, dynamic>))
+              .toList() ??
+          [],
       status: map['status'] as String,
       tagline: map['tagline'] as String,
       title: map['title'] as String,
       video: map['video'] as bool,
-      voteAverage: map['voteAverage'] as double,
-      voteCount: map['voteCount'] as int,
+      voteAverage: map['vote_average'] as double,
+      voteCount: map['vote_count'] as int,
     );
   }
 
@@ -262,9 +266,9 @@ class MovieDetailModel {
 }
 
 class SpokenLanguage {
-  String englishName;
-  String iso6391;
-  String name;
+  String? englishName;
+  String? iso6391;
+  String? name;
   SpokenLanguage({
     required this.englishName,
     required this.iso6391,
@@ -286,15 +290,16 @@ class SpokenLanguage {
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'englishName': englishName,
-      'iso6391': iso6391,
+      'iso_639_1': iso6391,
       'name': name,
     };
   }
 
   factory SpokenLanguage.fromMap(Map<String, dynamic> map) {
     return SpokenLanguage(
-      englishName: map['englishName'] as String,
-      iso6391: map['iso6391'] as String,
+      englishName:
+          map['englishName'] != null ? map['englishName'] as String : '',
+      iso6391: map['iso_639_1'] as String,
       name: map['name'] as String,
     );
   }
@@ -322,8 +327,8 @@ class SpokenLanguage {
 }
 
 class ProductionCountry {
-  String iso31661;
-  String name;
+  String? iso31661;
+  String? name;
   ProductionCountry({
     required this.iso31661,
     required this.name,
@@ -341,14 +346,14 @@ class ProductionCountry {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'iso31661': iso31661,
+      'iso_3166_1': iso31661,
       'name': name,
     };
   }
 
   factory ProductionCountry.fromMap(Map<String, dynamic> map) {
     return ProductionCountry(
-      iso31661: map['iso31661'] as String,
+      iso31661: map['iso_3166_1'] as String,
       name: map['name'] as String,
     );
   }
@@ -373,10 +378,10 @@ class ProductionCountry {
 }
 
 class ProductionCompany {
-  int id;
-  String logoPath;
-  String name;
-  String originCountry;
+  int? id;
+  String? logoPath;
+  String? name;
+  String? originCountry;
   ProductionCompany({
     required this.id,
     required this.logoPath,
@@ -401,18 +406,18 @@ class ProductionCompany {
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'id': id,
-      'logoPath': logoPath,
+      'logo_path': logoPath,
       'name': name,
-      'originCountry': originCountry,
+      'origin_country': originCountry,
     };
   }
 
   factory ProductionCompany.fromMap(Map<String, dynamic> map) {
     return ProductionCompany(
       id: map['id'] as int,
-      logoPath: map['logoPath'] as String,
+      logoPath: map['logo_path'] != null ? map['logo_path'] as String : '',
       name: map['name'] as String,
-      originCountry: map['originCountry'] as String,
+      originCountry: map['origin_country'] as String,
     );
   }
 
@@ -446,8 +451,8 @@ class ProductionCompany {
 }
 
 class Genre {
-  int id;
-  String name;
+  int? id;
+  String? name;
   Genre({
     required this.id,
     required this.name,
@@ -497,7 +502,7 @@ class Genre {
 }
 
 class BelongsToCollection {
-  int id;
+  int? id;
   String name;
   String posterPath;
   String backdropPath;

@@ -12,13 +12,13 @@ enum MovieKind {
 }
 
 class MovieApiService {
-  static String baseURL = 'https://movies-api.nomadcoders.workers.dev';
+  static String baseURL = 'https://movies-api.nomadcoders.workers.dev/';
 
   static Future<List<MovieModel>> getMovieApi(MovieKind movieKind) async {
     List<MovieModel> movieInstances = [];
     String kind = getMovieKind(movieKind);
 
-    final response = await http.get(Uri.parse('$baseURL/$kind'));
+    final response = await http.get(Uri.parse('$baseURL$kind'));
     logger.info('qwerasdf baseURL/kind $baseURL $kind');
     if (response.statusCode == 200) {
       final Map<String, dynamic> jsonData = jsonDecode(response.body);
@@ -36,23 +36,19 @@ class MovieApiService {
     return movieInstances;
   }
 
-  static Future<List<MovieDetailModel>> getMovieDetailApi(int id) async {
-    List<MovieDetailModel> movieDetailInstances = [];
+  static Future<MovieDetailModel> getMovieDetailApi(int id) async {
+    logger.info('qwerasdf getMovieDetailApi baseURL $baseURL movie?$id');
 
-    logger.info('qwerasdf getMovieDetailApi');
+    final response = await http.get(Uri.parse('${baseURL}movie?id=$id'));
 
-    final response = await http.get(Uri.parse('$baseURL/movie?$id'));
-
-    logger.info('qwerasdf response.statusCode ${response.statusCode}');
+    // logger.info('qwerasdf response.statusCode ${response.statusCode}');
     if (response.statusCode == 200) {
-      final List<dynamic> moviesJson = jsonDecode(response.body);
-      movieDetailInstances =
-          moviesJson.map((e) => MovieDetailModel.fromJson(e)).toList();
+      // final moviesJson = jsonDecode(response.body);
+      // return MovieDetailModel.fromJson(moviesJson);
+      return MovieDetailModel.fromJson(response.body);
     }
 
-    logger.info('qwerasdf movieDetailInstances $movieDetailInstances');
-
-    return movieDetailInstances;
+    throw Error();
   }
 
   static String getMovieKind(MovieKind movieKind) {
