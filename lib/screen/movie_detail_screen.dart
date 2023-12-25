@@ -72,15 +72,99 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                     ],
                   ),
                 ),
-                child: Column(
-                  children: [
-                    Text('title'),
-                    Text('stars'),
-                    Text('timer'),
-                    Text('storyline'),
-                    Text(
-                        'story asdfstory asdfstory asdfstory asdfstory asdfstory asdfstory asdfstory asdfstory asdfstory asdfstory asdfstory asdfstory asdfstory asdfstory asdfstory asdfstory asdfstory asdfstory asdfstory asdfstory asdfstory asdf'),
-                  ],
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height / 3,
+                      ),
+                      Text(
+                        movieDetailModel.title,
+                        style: const TextStyle(
+                          fontSize: 36,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                        child: Row(
+                          children: List.generate(
+                            5,
+                            (index) => Icon(
+                              Icons.star,
+                              color: index < movieDetailModel.voteAverage / 2
+                                  ? Colors.yellow
+                                  : Colors.grey,
+                            ),
+                          ),
+                          /*
+                          [
+                            // for (var genre in movieDetailModel.genres)
+                            Icon(
+                              Icons.star_border,
+                            ),
+                            Icon(
+                              Icons.star,
+                              color: Colors.yellow,
+                            ),
+                            Icon(
+                              Icons.star,
+                              color: Colors.grey,
+                            ),
+                            Icon(Icons.star_half),
+                          ],
+                           */
+                        ),
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            '${movieDetailModel.runtime ~/ 60}h ${movieDetailModel.runtime % 60}min',
+                            style: const TextStyle(
+                              fontSize: 16,
+                              color: Colors.white70,
+                            ),
+                          ),
+                          Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 8.0),
+                            child: Container(
+                              width: 2.0,
+                              height: 12.0,
+                              color: Colors.white70,
+                            ),
+                          ),
+                          for (var genre in movieDetailModel.genres)
+                            Text(
+                              '${genre.name}${genre != movieDetailModel.genres.last ? ', ' : ''}',
+                              style: const TextStyle(
+                                fontSize: 16,
+                                color: Colors.white70,
+                              ),
+                            ),
+                        ],
+                        // movieDetailModel.genres
+                        //     .map((e) => Text(e.name ?? 'none'),)
+                        //     .toList(),
+                      ),
+                      const SizedBox(
+                        height: 24.0,
+                      ),
+                      const Text(
+                        'Storyline',
+                        style: TextStyle(
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                      Text(
+                          'story asdfstory asdfstory asdfstory asdfstory asdfstory asdfstory asdfstory asdfstory asdfstory asdfstory asdfstory asdfstory asdfstory asdfstory asdfstory asdfstory asdfstory asdfstory asdfstory asdfstory asdfstory asdf'),
+                    ],
+                  ),
                 ),
               ),
               Container(
