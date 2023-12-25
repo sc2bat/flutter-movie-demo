@@ -100,23 +100,6 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                                   : Colors.grey,
                             ),
                           ),
-                          /*
-                          [
-                            // for (var genre in movieDetailModel.genres)
-                            Icon(
-                              Icons.star_border,
-                            ),
-                            Icon(
-                              Icons.star,
-                              color: Colors.yellow,
-                            ),
-                            Icon(
-                              Icons.star,
-                              color: Colors.grey,
-                            ),
-                            Icon(Icons.star_half),
-                          ],
-                           */
                         ),
                       ),
                       Row(
@@ -161,22 +144,17 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                           color: Colors.white,
                         ),
                       ),
-                      Text(
-                          'story asdfstory asdfstory asdfstory asdfstory asdfstory asdfstory asdfstory asdfstory asdfstory asdfstory asdfstory asdfstory asdfstory asdfstory asdfstory asdfstory asdfstory asdfstory asdfstory asdfstory asdfstory asdf'),
+                      Container(
+                        width: MediaQuery.of(context).size.width / 4 * 3,
+                        child: Text(
+                          movieDetailModel.overview,
+                          style: const TextStyle(
+                            fontSize: 18,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
                     ],
-                  ),
-                ),
-              ),
-              Container(
-                width: double.infinity,
-                height: 2000,
-                color: Colors.black54,
-                padding: const EdgeInsets.all(16.0),
-                child: const Text(
-                  'Title',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 32,
                   ),
                 ),
               ),
