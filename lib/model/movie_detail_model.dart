@@ -6,7 +6,7 @@ import 'package:flutter/foundation.dart';
 class MovieDetailModel {
   bool adult;
   String backdropPath;
-  BelongsToCollection belongsToCollection;
+  BelongsToCollection? belongsToCollection;
   int budget;
   List<Genre> genres;
   String homepage;
@@ -117,7 +117,8 @@ class MovieDetailModel {
     return <String, dynamic>{
       'adult': adult,
       'backdrop_path': backdropPath,
-      'belongs_to_collection': belongsToCollection.toMap(),
+      if (belongsToCollection != null)
+        'belongs_to_collection': belongsToCollection!.toMap(),
       'budget': budget,
       'genres': genres.map((x) => x.toMap()).toList(),
       'homepage': homepage,
@@ -406,7 +407,7 @@ class ProductionCompany {
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'id': id,
-      'logo_path': logoPath,
+      if (logoPath != null) 'logo_path': logoPath,
       'name': name,
       'origin_country': originCountry,
     };
