@@ -13,10 +13,10 @@ class MovieModel {
   String overview;
   double popularity;
   String posterPath;
-  DateTime releaseDate;
+  String releaseDate;
   bool video;
-  String voteAverage;
-  String voteCount;
+  double voteAverage;
+  int voteCount;
   MovieModel({
     required this.adult,
     required this.backdropPath,
@@ -43,10 +43,10 @@ class MovieModel {
     String? overview,
     double? popularity,
     String? posterPath,
-    DateTime? releaseDate,
+    String? releaseDate,
     bool? video,
-    String? voteAverage,
-    String? voteCount,
+    double? voteAverage,
+    int? voteCount,
   }) {
     return MovieModel(
       adult: adult ?? this.adult,
@@ -76,7 +76,7 @@ class MovieModel {
       'overview': overview,
       'popularity': popularity,
       'poster_path': posterPath,
-      'release_date': releaseDate.millisecondsSinceEpoch,
+      'release_date': releaseDate,
       'video': video,
       'vote_average': voteAverage,
       'vote_count': voteCount,
@@ -94,13 +94,12 @@ class MovieModel {
       originalLanguage: map['original_language'] as String,
       originalTitle: map['original_title'] as String,
       overview: map['overview'] as String,
-      popularity: map['popularity'] as double,
+      popularity: (map['popularity'] as num).toDouble(),
       posterPath: map['poster_path'] as String,
-      releaseDate:
-          DateTime.fromMillisecondsSinceEpoch(map['release_date'] as int),
+      releaseDate: map['release_date'] as String,
       video: map['video'] as bool,
-      voteAverage: map['vote_average'] as String,
-      voteCount: map['vote_count'] as String,
+      voteAverage: (map['vote_average'] as num).toDouble(),
+      voteCount: map['vote_count'] as int,
     );
   }
 

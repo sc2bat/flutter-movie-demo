@@ -1,22 +1,23 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:my_movie_demo_app/util/logger.dart';
 
-class MovieModelWidget extends StatelessWidget {
+class MovieImageOnlyWidget extends StatelessWidget {
   final bool adult;
   final String backdropPath;
-  final List<int> genreIds;
+  final List<dynamic> genreIds;
   final int id;
   final String originalLanguage;
   final String originalTitle;
   final String overview;
   final double popularity;
   final String posterPath;
-  final DateTime releaseDate;
+  final String releaseDate;
   final bool video;
-  final String voteAverage;
-  final String voteCount;
+  final double voteAverage;
+  final int voteCount;
 
-  const MovieModelWidget({
+  const MovieImageOnlyWidget({
     Key? key,
     required this.adult,
     required this.backdropPath,
@@ -35,15 +36,17 @@ class MovieModelWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    logger.info('qwerasdf https://image.tmdb.org/t/p/w500/$id');
+    logger.info('qwerasdf https://image.tmdb.org/t/p/w500/$posterPath');
     return Column(
       children: [
         Hero(
           tag: id,
           child: Container(
-            width: 200,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20.0),
-              boxShadow: const [
+            width: 350,
+            height: 250,
+            decoration: const BoxDecoration(
+              boxShadow: [
                 BoxShadow(
                   color: Colors.black54,
                   offset: Offset(4, 4),
@@ -51,7 +54,13 @@ class MovieModelWidget extends StatelessWidget {
                 ),
               ],
             ),
-            child: Image.network('https://image.tmdb.org/t/p/w500/$posterPath'),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(20.0),
+              child: Image.network(
+                'https://image.tmdb.org/t/p/w500/$posterPath',
+                fit: BoxFit.cover,
+              ),
+            ),
           ),
         ),
       ],

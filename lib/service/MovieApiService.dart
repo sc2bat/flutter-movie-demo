@@ -1,12 +1,9 @@
 import 'dart:convert';
 
-import 'package:flutter/material.dart';
 import 'package:my_movie_demo_app/model/movie_detail_model.dart';
 import 'package:my_movie_demo_app/model/movie_model.dart';
-import 'package:simple_logger/simple_logger.dart';
 import 'package:http/http.dart' as http;
-
-final logger = SimpleLogger();
+import 'package:my_movie_demo_app/util/logger.dart';
 
 enum MovieKind {
   popular,
@@ -22,11 +19,18 @@ class MovieApiService {
     String kind = getMovieKind(movieKind);
 
     final response = await http.get(Uri.parse('$baseURL/$kind'));
-
+    logger.info('qwerasdf baseURL/kind $baseURL $kind');
     if (response.statusCode == 200) {
       final Map<String, dynamic> jsonData = jsonDecode(response.body);
       final List<dynamic> moviesJson = jsonData['results'];
       movieInstances = moviesJson.map((e) => MovieModel.fromMap(e)).toList();
+    }
+
+    if (movieKind == MovieKind.popular) {
+      movieInstances.sort((a, b) => (a.popularity).compareTo(b.popularity));
+    }
+    if (movieKind == MovieKind.comingSoon) {
+      movieInstances.sort((a, b) => (a.releaseDate).compareTo(b.releaseDate));
     }
 
     return movieInstances;
@@ -35,13 +39,18 @@ class MovieApiService {
   static Future<List<MovieDetailModel>> getMovieDetailApi(int id) async {
     List<MovieDetailModel> movieDetailInstances = [];
 
+    logger.info('qwerasdf getMovieDetailApi');
+
     final response = await http.get(Uri.parse('$baseURL/movie?$id'));
 
+    logger.info('qwerasdf response.statusCode ${response.statusCode}');
     if (response.statusCode == 200) {
       final List<dynamic> moviesJson = jsonDecode(response.body);
       movieDetailInstances =
           moviesJson.map((e) => MovieDetailModel.fromJson(e)).toList();
     }
+
+    logger.info('qwerasdf movieDetailInstances $movieDetailInstances');
 
     return movieDetailInstances;
   }
